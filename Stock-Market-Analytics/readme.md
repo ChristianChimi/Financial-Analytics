@@ -5,7 +5,7 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
      - Best and worst months for VWCE
      - Seasonality check: 5 best and worst months seem to follow a pattern
      - Correlation and scatterplot between VWCE, S&P500 and MSCI World
-     - Normalization of prices to plot efficiently VWCE, MSCI World and S&P500 on the same graphic
+     - Normalization of prices to efficiently plot VWCE, MSCI World and S&P500 on the same graphic
      - Comparation Indexes-Apple stock
      - Evaluation of volatily of the 4 products
      - Linear regression and prediction of MSCI World based on SP500's price
