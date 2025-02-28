@@ -11,6 +11,6 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
      - Linear regression and prediction of MSCI World based on SP500's price
      - Polynomial Regression and prediction of Apple's stock based on SP500
  - Portfolio simulation: 
-     - lump sum investment and dollar coast averaging with performances
-     - Statistics: CAGR, ROI and sharpe ratio
+     - Lump sum investment and dollar coast averaging with performances
+     - Financial performance metrics: CAGR, ROI and sharpe ratio
    
