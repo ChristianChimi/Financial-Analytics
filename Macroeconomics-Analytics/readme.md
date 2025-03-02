@@ -4,6 +4,7 @@ Pre-analytics steps:
   - Data conversion to more readable values.
   - Melting to transform dataframes from wide to long format.
   - Merge all dataframes to consolidate the data into a single and easy accessible dataframe
+  - 
 Visualization on PowerBI:
   - Phillip's Curve scatterplot(inflation and unemployment)
   - GDP and Unemployment per Year for every Country
