@@ -6,6 +6,10 @@ Pre-analytics steps:
   - Melting to transform dataframes from wide to long format.
   - Merge all dataframes to consolidate the data into a single and easy accessible dataframe
 
+Python EDA
+  - Phillip's Curve and evaluation on canada and Italy
+  - 
+
 Visualization on PowerBI as a interactive report:
   - Phillip's Curve scatterplot(inflation and unemployment)
   - GDP and Unemployment per Year for every Country
