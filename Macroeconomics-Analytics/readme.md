@@ -8,9 +8,9 @@ Pre-analytics steps:
 
 Python EDA
   - Phillip's Curve and evaluation on canada and Italy
-  - 
+  - Impact of 2008 crisis on GDP and Unemployment, with correlation
 
-Visualization on PowerBI as a interactive report:
+Visualization on Tableau as a interactive dashboard:
   - Phillip's Curve scatterplot(inflation and unemployment)
   - GDP and Unemployment per Year for every Country
   - Year and Country filters to visualize data
