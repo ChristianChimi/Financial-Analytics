@@ -13,4 +13,6 @@ Python EDA
 Visualization on Tableau as a interactive dashboard:
   - Phillip's Curve scatterplot(inflation and unemployment)
   - GDP and Unemployment per Year for every Country
-  - Year and Country filters to visualize data
+  - Inflation world map
+  - GDP tree map
+  - Year filter to visualize data
