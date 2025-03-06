@@ -11,7 +11,7 @@ Python EDA
   - Impact of 2008 crisis on GDP and Unemployment, with correlation
 
 Visualization on Tableau as a interactive dashboard:
-  - Phillip's Curve scatterplot(inflation and unemployment)
+  - Phillip's Curve scatterplot (inflation and unemployment)
   - GDP and Unemployment per Year for every Country
   - Inflation world map
   - GDP tree map
