@@ -8,6 +8,7 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
      - Normalization of prices to efficiently plot VWCE, MSCI World and S&P500 on the same graphic
      - Comparison Indexes-Apple stock
      - Evaluation of volatily of the 4 products
+     - Reflection on correlation between MSCI and EIMI indexes. Are we really diversificating?
      - Linear regression and prediction of MSCI World based on SP500's price
      - Polynomial Regression and prediction of Apple's stock based on SP500
  - Portfolio simulation: 
