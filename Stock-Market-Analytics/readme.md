@@ -9,7 +9,8 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
      - Comparison Indexes-Apple stock
      - Evaluation of volatily of the 4 products
      - Reflection on correlation between MSCI and EIMI indexes. Are we really diversificating?
-     - Linear regression and prediction of MSCI World based on SP500's price
+     - Linear regression and prediction of MSCI World based on SP500's price.
+     - Deeplearning with torch: MLP as simple neural network and LSTM for time series.
      - Polynomial Regression and prediction of Apple's stock based on SP500
  - Portfolio simulation: 
      - Lump sum investment and dollar coast averaging with performances
