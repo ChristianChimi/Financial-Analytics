@@ -6,13 +6,8 @@ Pre-analytics steps:
   - Melting to transform dataframes from wide to long format.
   - Merge all dataframes to consolidate the data into a single and easy accessible dataframe
 
-Python EDA
+Eda:
   - Phillip's Curve and evaluation on canada and Italy
-  - Impact of 2008 crisis on GDP and Unemployment, with correlation
-
-Visualization on Tableau as a interactive dashboard:
-  - Phillip's Curve scatterplot (inflation and unemployment)
-  - GDP and Unemployment per Year for every Country
-  - Inflation world map
-  - GDP tree map
-  - Year filter to visualize data
+  - Economic Stress index intialization and visualization
+  - Monte Carlo method tu predict GDP growth
+  - Deep Learning: Random Forest Classificator on GDP datagrame to identify recession years
