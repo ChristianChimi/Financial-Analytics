@@ -9,7 +9,7 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
      - Evaluation of volatily of the 4 products
      - Reflection on correlation between MSCI and EIMI indexes. Are we really diversificating?
 
--Deep learning:
+- Deep learning:
      - Price prediction with torch:
           - MLP: predict APPLE stock price basing on S&P500 and NASDAQ prices.
           - LSTM: time series to predict MSCI world index price.
