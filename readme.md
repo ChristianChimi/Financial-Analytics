@@ -3,10 +3,10 @@ I loaded CSV containing 10 years of historical data of NASDAQ, S&P 500, iShares 
 After doing some pre-analytics steps (Date conversion, sorting by date, deleting strings characters and conversion to float) i found/did:
 
 - EDA:
-     - Correlation and scatterplot between NASDAQ, S&P500 and MSCI World
-     - Normalization of prices to efficiently plot NASDAQ, MSCI World and S&P500 on the same graphic
-     - Comparison Indexes-Apple stock
-     - Evaluation of volatily of the 4 products
+     - Correlation and scatterplot between NASDAQ, S&P500 and MSCI World.
+     - Normalization of prices to efficiently plot NASDAQ, MSCI World and S&P500 on the same graphic.
+     - Comparison Indexes-Apple stock.
+     - Evaluation of volatily of the 4 products.
      - Reflection on correlation between MSCI and EIMI indexes. Are we really diverisfying?
 
 - Deep learning:
@@ -15,6 +15,6 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
           - LSTM: time series to predict MSCI world index price.
           
  - Portfolio simulation: 
-     - Lump sum investment and dollar coast averaging with performances
-     - Financial performance metrics: CAGR, ROI and sharpe ratio
+     - Lump sum investment and dollar coast averaging with performances.
+     - Financial performance metrics: CAGR, ROI and sharpe ratio.
    
