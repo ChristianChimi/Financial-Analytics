@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apple Stock Predictor</title>
+</head>
+<body>
+    <h2>Inserisci i valori</h2>
+    <form action="/predict_form" method="post">
+        <label for="nasdaq">Prezzo Nasdaq:</label>
+        <input type="text" id="nasdaq" name="nasdaq"><br><br>
+
+        <label for="sp500">Prezzo S&P 500:</label>
+        <input type="text" id="sp500" name="sp500"><br><br>
+
+        <input type="submit" value="Prevedi Prezzo Apple">
+    </form>
+
+    {% if prediction %}
+        <h3>Prezzo previsto: {{ prediction }}</h3>
+    {% endif %}
+</body>
+</html>
