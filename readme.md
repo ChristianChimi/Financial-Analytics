@@ -12,6 +12,7 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
 - Deep learning:
      - Price prediction with torch:
           - MLP: predict APPLE stock price basing on S&P500 and NASDAQ prices.
+            Also available as API here! https://huggingface.co/spaces/ChristianChimi/Apple-Stock-API
           - LSTM: time series to predict MSCI world index price.
           
  - Portfolio simulation: 
