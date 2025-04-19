@@ -7,7 +7,7 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
      - Normalization of prices to efficiently plot NASDAQ, MSCI World and S&P500 on the same graphic
      - Comparison Indexes-Apple stock
      - Evaluation of volatily of the 4 products
-     - Reflection on correlation between MSCI and EIMI indexes. Are we really diversificating?
+     - Reflection on correlation between MSCI and EIMI indexes. Are we really diverisfying?
 
 - Deep learning:
      - Price prediction with torch:
