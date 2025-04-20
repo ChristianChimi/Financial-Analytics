@@ -1,22 +1,134 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Apple Stock Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f2f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            color: #111;
+        }
+
+        header p {
+            font-size: 1em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        form {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 420px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            margin-top: 28px;
+            width: 100%;
+            padding: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .prediction {
+            margin-top: 35px;
+            font-size: 20px;
+            color: #28a745;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @media (max-width: 500px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            form {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Inserisci i valori</h2>
+    <header>
+        <h1>Apple Stock Predictor</h1>
+        <p>Estimate AAPL stock price based on market indexes</p>
+    </header>
+
     <form action="/predict_form" method="post">
-        <label for="nasdaq">Prezzo Nasdaq:</label>
-        <input type="text" id="nasdaq" name="nasdaq"><br><br>
+        <label for="nasdaq">Nasdaq price:</label>
+        <input type="text" id="nasdaq" name="nasdaq" placeholder="e.g. 13245.67">
 
-        <label for="sp500">Prezzo S&P 500:</label>
-        <input type="text" id="sp500" name="sp500"><br><br>
+        <label for="sp500">S&P 500 price:</label>
+        <input type="text" id="sp500" name="sp500" placeholder="e.g. 4195.33">
 
-        <input type="submit" value="Prevedi Prezzo Apple">
+        <input type="submit" value="Predict Apple stock price">
     </form>
 
     {% if prediction %}
-        <h3>Prezzo previsto: {{ prediction }}</h3>
+        <div class="prediction">
+            Predicted Apple price: {{ prediction }}
+        </div>
     {% endif %}
 </body>
 </html>
