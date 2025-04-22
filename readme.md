@@ -14,6 +14,7 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
           - MLP: predict APPLE stock price basing on S&P500 and NASDAQ prices.
             Also available as API here! https://huggingface.co/spaces/ChristianChimi/Apple-Stock-API
           - LSTM: time series to predict MSCI world index price.
+          - Print loss of the model.
           
  - Portfolio simulation: 
      - Lump sum investment and dollar coast averaging with performances.
