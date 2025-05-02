@@ -22,4 +22,4 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
      - Financial performance metrics: CAGR, ROI and sharpe ratio.
    
 ## **Technologies Used**
-     - **Python**, **Pandas**, **Matplotlib**, **PyTorch**, **Scikit-learn**
+     - **Python**, **Pandas**, **Numpy**, **PyTorch**, **Scikit-learn**
