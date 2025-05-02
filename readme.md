@@ -21,3 +21,6 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
      - Lump sum investment and dollar coast averaging with performances.
      - Financial performance metrics: CAGR, ROI and sharpe ratio.
    
+## **Technologies Used**
+     - **Python**, **Pandas**, **Matplotlib**, **PyTorch**, **Scikit-learn**
+     - **Machine Learning for forecasting** and **statistical analysis**
