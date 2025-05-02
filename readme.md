@@ -23,4 +23,3 @@ After doing some pre-analytics steps (Date conversion, sorting by date, deleting
    
 ## **Technologies Used**
      - **Python**, **Pandas**, **Matplotlib**, **PyTorch**, **Scikit-learn**
-     - **Machine Learning for forecasting** and **statistical analysis**
