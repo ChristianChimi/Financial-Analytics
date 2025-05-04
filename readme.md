@@ -1,24 +1,23 @@
 ## **Financial Analytics - Stock Market**
-Hi! This is a little project of data analysis. 
-I loaded CSV containing 10 years of historical data of NASDAQ, S&P 500, iShares MSCI World. EIMI and Apple stock + 5 years of VWCE..
-After doing some pre-analytics steps (Date conversion, sorting by date, deleting strings characters and conversion to float) i found/did:
+## **Overviwew**
+In this project, I analyze 10 years of historical data for various financial instruments, including NASDAQ, S&P 500, iShares MSCI World (EIMI), Apple stock, and 5 years of VWCE data. The goal was to gain insights into stock market behavior and portfolio performance.
 
 ## **Exploratory Data Analysis**
      - Correlation and scatterplot between NASDAQ, S&P500 and MSCI World.
-     - Normalization of prices to efficiently plot NASDAQ, MSCI World and S&P500 on the same graphic.
+     - Normalization of prices to efficiently plot NASDAQ, MSCI World and S&P500 on the same graph.
      - Comparison Indexes-Apple stock.
-     - Evaluation of volatily of the 4 products.
-     - Reflection on correlation between MSCI and EIMI indexes. Are we really diverisfying?
+     - Volatility evaluation: Evaluated the volatility of NASDAQ, S&P 500, MSCI World, and Apple stock
+     - Analyzed the correlation between MSCI World and EIMI indexes. Are these two indices truly providing diversification?
 
 ## **Deep Learning**
      - Price prediction with torch:
           - MLP: predict APPLE stock price basing on S&P500 and NASDAQ prices.
             Also available as API here! https://huggingface.co/spaces/ChristianChimi/Apple-Stock-API
-          - LSTM: time series to predict MSCI world index price.
-          - Print loss of the model.
+          - LSTM: Used an LSTM model to predict the future price of the MSCI World Index using time series data.
+          - Model Evaluation: Monitored and printed the loss function during training.
           
 ## **Portfolio simulation** 
-     - Lump sum investment and dollar coast averaging with performances.
+     - Lump sum investment and dollar cost averaging with performances.
      - Financial performance metrics: CAGR, ROI and sharpe ratio.
    
 ## **Technologies Used**
