@@ -21,4 +21,4 @@ In this project, I analyze 10 years of historical data for various financial ins
      - Financial performance metrics: CAGR, ROI and sharpe ratio.
    
 ## **Technologies Used**
-     - **Python**, **Pandas**, **Numpy**, **PyTorch**, **Scikit-learn**
+ - **Python**, **Pandas**, **Numpy**, **PyTorch**, **Scikit-learn**
