@@ -9,12 +9,12 @@ In this project, I analyze 10 years of historical data for various financial ins
      - Analyzed the correlation between MSCI World and EIMI indexes. Are these two indices truly providing diversification?
 
 ## **Deep Learning Models**
-I trained two different neural networks using PyTorch to assess predictive capabilities:
-     - Price prediction with torch:
-          - MLP: predict Apple stock price based on S&P 500 and NASDAQ prices.
-            Also available as API here! https://huggingface.co/spaces/ChristianChimi/Apple-Stock-API
-          - LSTM: Used an LSTM model to predict the future price of the MSCI World Index using time series data.
-          - Model Evaluation: Monitored and printed the loss function during training.
+     - I trained two different neural networks using PyTorch to assess predictive capabilities:
+          - Price prediction with torch:
+               - MLP: predict Apple stock price based on S&P 500 and NASDAQ prices.
+                 Also available as API here! https://huggingface.co/spaces/ChristianChimi/Apple-Stock-API
+               - LSTM: Used an LSTM model to predict the future price of the MSCI World Index using time series data.
+               - Model Evaluation: Monitored and printed the loss function during training.
           
 ## **Portfolio simulation** 
      - Lump sum investment and dollar cost averaging with performances.
