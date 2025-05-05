@@ -15,6 +15,7 @@ In this project, I analyze 10 years of historical data for various financial ins
                  Also available as API here! https://huggingface.co/spaces/ChristianChimi/Apple-Stock-API
                - LSTM: Used an LSTM model to predict the future price of the MSCI World Index using time series data.
                - Model Evaluation: Monitored and printed the loss and the validation loss function during training to avoid overfitting.
+               - Plotted loss and validation loss over the epochs.
                - Hyperparameters tuning: hidden layers, hidden layers size, learning rate, epochs, dropout.
           
 ## **Portfolio simulation** 
