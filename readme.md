@@ -13,7 +13,7 @@ Real datasets from investing.com!
 ## **Deep Learning Models**
  - I trained two different neural networks using PyTorch to assess predictive capabilities:
     - Price prediction with torch:
-            - MLP: predict Apple stock price based on S&P 500 and NASDAQ prices.
+      - MLP: predict Apple stock price based on S&P 500 and NASDAQ prices.
        Also available as API here! https://huggingface.co/spaces/ChristianChimi/Apple-Stock-API
     - LSTM: Used an LSTM model to predict the future price of the MSCI World Index using time series data.
       - Model Evaluation: Monitored and printed the loss and the validation loss function during training to avoid overfitting.
