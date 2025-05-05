@@ -1,7 +1,8 @@
 ## **Financial Analytics - Stock Market**
 ## **Overview**
 In this project, I analyze 10 years of historical data for various financial instruments, including NASDAQ, S&P 500, iShares MSCI World (EIMI), Apple stock, and 5 years of VWCE data. The goal was to gain insights into stock market behavior and portfolio performance.
-Real dataset from investing.com!
+
+Real datasets from investing.com!
 
 ## **Exploratory Data Analysis**
      - Correlation and scatterplot between NASDAQ, S&P500 and MSCI World.
