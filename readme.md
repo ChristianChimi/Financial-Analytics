@@ -21,16 +21,16 @@ Real datasets from investing.com!
         - Hyperparameters tuning: hidden layers, hidden layers size, learning rate, epochs, dropout.
           
 ## **Portfolio simulation** 
-    - Lump sum investment and dollar cost averaging with performances.
-    - Financial performance metrics: Performance evaluated using:
-     - CAGR (Compound Annual Growth Rate)
-     - ROI (Return on Investment)
-    - Sharpe Ratio (Risk-adjusted return)
+   - Lump sum investment and dollar cost averaging with performances.
+   - Financial performance metrics: Performance evaluated using:
+   - CAGR (Compound Annual Growth Rate)
+   - ROI (Return on Investment)
+   - Sharpe Ratio (Risk-adjusted return)
      
 ## **Key Insights** 
-    - Nasdaq-100, MSCI World and S&P500 have a nearly perfect correlation. Nasdaq and S&P have slightly better performance but higher volatility.
-   - Normalizing S&P500 and Apple stock prices, we clearly see Apple tracks the index most of the time.
-   - Emerging markets (EIMI) do not currently offer effective diversification — in the last year, they’ve shown high correlation with developed markets, along with lower returns and higher volatility.
+  - Nasdaq-100, MSCI World and S&P500 have a nearly perfect correlation. Nasdaq and S&P have slightly better performance but higher volatility.
+  - Normalizing S&P500 and Apple stock prices, we clearly see Apple tracks the index most of the time.
+  - Emerging markets (EIMI) do not currently offer effective diversification — in the last year, they’ve shown high correlation with developed markets, along with lower returns and higher volatility.
 
 ## **Technologies Used**
  - **Python**, **Pandas**, **Numpy**, **PyTorch**, **Scikit-learn**
