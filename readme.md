@@ -15,10 +15,10 @@ Real datasets from investing.com!
     - Price prediction with torch:
             - MLP: predict Apple stock price based on S&P 500 and NASDAQ prices.
                 Also available as API here! https://huggingface.co/spaces/ChristianChimi/Apple-Stock-API
-          - LSTM: Used an LSTM model to predict the future price of the MSCI World Index using time series data.
-          - Model Evaluation: Monitored and printed the loss and the validation loss function during training to avoid overfitting.
-          - Plotted loss and validation loss over the epochs.
-          - Hyperparameters tuning: hidden layers, hidden layers size, learning rate, epochs, dropout.
+    - LSTM: Used an LSTM model to predict the future price of the MSCI World Index using time series data.
+      - Model Evaluation: Monitored and printed the loss and the validation loss function during training to avoid overfitting.
+        - Plotted loss and validation loss over the epochs.
+        - Hyperparameters tuning: hidden layers, hidden layers size, learning rate, epochs, dropout.
           
 ## **Portfolio simulation** 
     - Lump sum investment and dollar cost averaging with performances.
