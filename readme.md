@@ -1,4 +1,4 @@
-## **Financial Analytics - Stock Market**
+# **Financial Analytics - Stock Market**
 ## **Overview**
 In this project I analyzed 10 years of historical data for the most famous financial indexes,including: NASDAQ-100, S&P500, iShares MSCI World, EIMI, Apple stock, and 5 years of VWCE data.
 The goal was to gain insights into stock market behavior and portfolio performance.
