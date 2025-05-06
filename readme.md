@@ -24,9 +24,9 @@ Real datasets from investing.com!
 ## **Portfolio simulation** 
    - Lump sum investment and dollar cost averaging simulation.
    - Financial performance metrics, performance evaluated using:
-    - CAGR (Compound Annual Growth Rate)
-    - ROI (Return on Investment)
-   	- Sharpe Ratio (Risk-adjusted return)
+     - CAGR (Compound Annual Growth Rate)
+     - ROI (Return on Investment)
+   	 - Sharpe Ratio (Risk-adjusted return)
      
 ## **Key Insights** 
   - Nasdaq-100, MSCI World and S&P500 have a nearly perfect correlation. Nasdaq and S&P have slightly better performance but higher volatility.
