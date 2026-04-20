@@ -9,7 +9,7 @@ from utils_tft import get_market_data, prepare_dataset, recursive_forecast
 st.set_page_config(page_title="Neural Engine Pro", layout="wide")
 
 # --- SIDEBAR ---
-st.sidebar.title("🎮 Control Panel")
+st.sidebar.title("Control Panel")
 ticker = st.sidebar.text_input("Ticker Symbol", "NVDA")
 epochs = st.sidebar.slider("Training Epochs", 20, 100, 50)
 forecast_days = st.sidebar.slider("Forecast Horizon (Days)", 7, 60, 30)
