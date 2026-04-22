@@ -2,6 +2,7 @@ streamlit
 yfinance
 pandas
 numpy
-scikit-learn
-matplotlib
-tensorflow-cpu
+plotly
+neuralforecast
+torch
+pytorch-lightning
