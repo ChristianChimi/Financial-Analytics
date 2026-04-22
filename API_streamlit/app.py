@@ -1,83 +1,74 @@
 import streamlit as st
-import matplotlib.pyplot as plt
-from datetime import timedelta
-from tensorflow.keras.callbacks import EarlyStopping
-from model import build_lstm_model
-from utils import get_market_data, prepare_dataset, recursive_forecast
+import plotly.graph_objects as go
+from utils import get_robust_data, create_future_exog
+from model import RobustForecastModel
 
-# UI Configuration
-st.set_page_config(page_title="Neural Engine Pro", layout="wide")
+st.set_page_config(page_title="AI Quant Pro", layout="wide", page_icon="📉")
 
-# --- SIDEBAR ---
-st.sidebar.title("Control Panel")
-ticker = st.sidebar.text_input("Ticker Symbol", "NVDA")
-epochs = st.sidebar.slider("Training Epochs", 20, 100, 50)
-forecast_days = st.sidebar.slider("Forecast Horizon (Days)", 7, 60, 30)
+st.title("🛡️ Advanced Financial Forecasting")
+st.markdown("Analisi neurale multivariata con orizzonte grafico esteso a 2 anni.")
 
-st.sidebar.divider()
-st.sidebar.info("Model: Stacked LSTM v3\nInput: Log-Returns\nInference: Stochastic Drift")
+st.sidebar.header("Impostazioni Analisi")
+ticker = st.sidebar.text_input("Ticker Simbolo", "AAPL").upper()
+period = st.sidebar.selectbox("Dati Storici (Lookback)", ["1y", "2y", "3y", "5y", "10y"], index=2)
+horizon = st.sidebar.slider("Orizzonte Predizione (Giorni)", 7, 90, 30)
 
-# --- MAIN INTERFACE ---
-st.title("Neural Market Engine v3")
-st.write(f"Forecasting for: **{ticker}**")
+@st.cache_resource
+def load_model_instance(h):
+    return RobustForecastModel(horizon=h)
 
-if st.button("Run Neural Training"):
-    with st.status("Processing market data and training...", expanded=True) as status:
-        # Data loading and prep
-        raw_data = get_market_data(ticker)
-        X, y, scaler, scaled_full = prepare_dataset(raw_data)
+if st.sidebar.button("Esegui Analisi"):
+    with st.spinner(f"Elaborazione dati per {ticker}..."):
+        data = get_robust_data(ticker, period=period)
         
-        # Model initialization
-        status.update(label="Building LSTM Architecture...", state="running")
-        model = build_lstm_model((X.shape[1], 1))
-        early_stop = EarlyStopping(monitor='loss', patience=7, restore_best_weights=True)
-        
-        # Training loop
-        p_bar = st.progress(0)
-        log_area = st.empty()
-        
-        for e in range(epochs):
-            h = model.fit(X, y, epochs=1, batch_size=32, verbose=0, callbacks=[early_stop])
-            loss = h.history['loss'][0]
-            p_bar.progress((e + 1) / epochs)
-            log_area.code(f"Epoch {e+1}/{epochs} | Training Loss: {loss:.6f}")
+        if data is not None:
+            futr_df = create_future_exog(data, horizon)
+            model_engine = load_model_instance(horizon)
+            forecast = model_engine.train_and_predict(data, futr_df)
             
-            if model.stop_training:
-                st.warning("🎯 Convergence Reached! (Early Stopping)")
-                p_bar.progress(1.0)
-                break
-        
-        status.update(label="Generating Recursive Forecasts...", state="running")
-        future_preds = recursive_forecast(model, scaled_full[-60:], forecast_days, scaler, raw_data)
-        status.update(label="Analysis Completed!", state="complete")
+            try:
+                col_p10 = [c for c in forecast.columns if '0.1' in c or 'lo' in c][0]
+                col_p50 = [c for c in forecast.columns if '0.5' in c or 'median' in c or 'NHITS' == c][0]
+                col_p90 = [c for c in forecast.columns if '0.9' in c or 'hi' in c][0]
+            except IndexError:
+                st.error("Errore nella mappatura delle colonne del modello.")
+                st.stop()
 
-    # --- VISUALIZATION ---
-    st.divider()
-    last_date = raw_data.index[-1]
-    future_dates = [last_date + timedelta(days=i) for i in range(1, forecast_days + 1)]
-    hist_tail = raw_data.tail(90)
-
-    fig, ax = plt.subplots(figsize=(12, 6), facecolor='#0e1117')
-    ax.set_facecolor('#0e1117')
-    
-    # Historical Plot
-    ax.plot(hist_tail.index, hist_tail.values, color='#00d4ff', label="Historical Price", linewidth=2)
-    
-    # Neural Projection
-    all_dates = [hist_tail.index[-1]] + future_dates
-    all_vals = [hist_tail.values[-1][0]] + list(future_preds.flatten())
-    ax.plot(all_dates, all_vals, color='#ff4b4b', linestyle='--', label="Neural Drift Projection", linewidth=2.5)
-    
-    # Styling
-    ax.tick_params(colors='white')
-    ax.grid(alpha=0.1, linestyle='--')
-    ax.legend(facecolor='#0e1117', labelcolor='white')
-    ax.set_title(f"{ticker} Forecast Analysis", color='white', fontsize=16)
-    
-    st.pyplot(fig)
-
-    # Metrics Summary
-    c1, c2 = st.columns(2)
-    c1.metric("Current Price", f"${hist_tail.values[-1][0]:.2f}")
-    delta = ((future_preds[-1][0] / hist_tail.values[-1][0]) - 1) * 100
-    c2.metric("Target (End of Period)", f"${future_preds[-1][0]:.2f}", f"{delta:.2f}%")
+            fig = go.Figure()
+            
+            # --- MODIFICA: Visualizzazione di 2 anni di storico (circa 500 giorni di borsa) ---
+            hist = data.tail(504) 
+            
+            fig.add_trace(go.Scatter(x=hist['ds'], y=hist['y'], 
+                                     name="Storico (2 anni)", line=dict(color='#636efa', width=1.5)))
+            
+            # Area di Incertezza
+            fig.add_trace(go.Scatter(
+                x=forecast['ds'].tolist() + forecast['ds'].tolist()[::-1],
+                y=forecast[col_p90].tolist() + forecast[col_p10].tolist()[::-1],
+                fill='toself', fillcolor='rgba(0, 255, 255, 0.1)', 
+                line=dict(color='rgba(255,255,255,0)'), name="Incertezza (80%)"
+            ))
+            
+            # Predizione
+            fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast[col_p50], 
+                                     name="Predizione", line=dict(color='cyan', width=3)))
+            
+            fig.update_layout(template="plotly_dark", hovermode="x unified", height=600,
+                              xaxis=dict(rangeselector=dict(buttons=list([
+                                  dict(count=6, label="6m", step="month", stepmode="backward"),
+                                  dict(count=1, label="1y", step="year", stepmode="backward"),
+                                  dict(step="all", label="2y")
+                              ])), type="date"))
+            
+            st.plotly_chart(fig, use_container_width=True)
+            
+            c1, c2, c3 = st.columns(3)
+            ultimo_prezzo = data['y'].iloc[-1]
+            target_finale = forecast[col_p50].iloc[-1]
+            c1.metric("Prezzo Attuale", f"${ultimo_prezzo:.2f}")
+            c2.metric("Target Previsto", f"${target_finale:.2f}")
+            c3.metric("Rendimento Potenziale", f"{((target_finale/ultimo_prezzo)-1)*100:.2f}%")
+            
+        else:
+            st.error("Impossibile recuperare i dati.")

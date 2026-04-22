@@ -1,23 +1,28 @@
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Dropout, LeakyReLU
-from tensorflow.keras.losses import Huber
+import torch
+from neuralforecast import NeuralForecast
+from neuralforecast.models import NHITS
+from neuralforecast.losses.pytorch import QuantileLoss
 
-def build_lstm_model(input_shape):
-    """Initializes a Stacked LSTM model with LeakyReLU activation and Huber Loss."""
-    model = Sequential([
-        LSTM(units=128, return_sequences=True, input_shape=input_shape),
-        LeakyReLU(alpha=0.1),
-        Dropout(0.2),
+class RobustForecastModel:
+    def __init__(self, horizon=30):
+        self.horizon = horizon
+        self.futr_exog = ['sp500', 'vix', 'volume', 'vol_ma']
+        quantiles_tensor = torch.tensor([0.1, 0.5, 0.9])
         
-        LSTM(units=64, return_sequences=False),
-        LeakyReLU(alpha=0.1),
-        Dropout(0.2),
-        
-        Dense(units=32),
-        LeakyReLU(alpha=0.1),
-        Dense(units=1)
-    ])
-    
-    # Robust loss function for financial time series
-    model.compile(optimizer='adam', loss=Huber(delta=1.0))
-    return model
+        self.model = NHITS(
+            h=self.horizon,
+            input_size=60,         
+            futr_exog_list=self.futr_exog,
+            scaler_type='robust',
+            max_steps=50,          
+            accelerator='cpu',     
+            loss=QuantileLoss(q=quantiles_tensor)
+        )
+        self.nf = NeuralForecast(models=[self.model], freq='B')
+
+    def train_and_predict(self, df, futr_df):
+        df_clean = df.copy().fillna(0)
+        futr_clean = futr_df.copy().fillna(0)
+        self.nf.fit(df=df_clean)
+        forecasts = self.nf.predict(futr_df=futr_clean)
+        return forecasts.reset_index()

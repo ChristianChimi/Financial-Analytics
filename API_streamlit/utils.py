@@ -1,89 +1,46 @@
 import yfinance as yf
-import numpy as np
 import pandas as pd
 import streamlit as st
-from sklearn.preprocessing import StandardScaler
 
-def get_market_data(ticker):
-    """
-    Fetches historical market data from Yahoo Finance and validates the output.
-    """
+def get_robust_data(ticker, period="3y"):
     try:
-        data = yf.download(ticker, period="3y")
+        stock_raw = yf.download(ticker, period=period, auto_adjust=True)
+        if stock_raw.empty: return None
         
-        # Safety check: if the ticker is invalid or no data is returned
-        if data.empty:
-            st.error(f"❌ Error: No data found for ticker '{ticker}'. Please check the symbol.")
-            st.stop()
-            
-        # Handle MultiIndex columns if necessary
-        if isinstance(data.columns, pd.MultiIndex):
-            data.columns = data.columns.get_level_values(0)
-            
-        return data[['Close']]
-    
+        df = stock_raw.copy()
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.get_level_values(0)
+        df = df.reset_index().rename(columns={'Date': 'ds', 'Close': 'y', 'Volume': 'volume'})
+        df['ds'] = pd.to_datetime(df['ds']).dt.tz_localize(None)
+
+        sp500_raw = yf.download('^GSPC', period=period, auto_adjust=True)
+        vix_raw = yf.download('^VIX', period=period, auto_adjust=True)
+
+        for temp in [sp500_raw, vix_raw]:
+            if isinstance(temp.columns, pd.MultiIndex): temp.columns = temp.columns.get_level_values(0)
+
+        sp500 = sp500_raw[['Close']].reset_index().rename(columns={'Date': 'ds', 'Close': 'sp500'})
+        vix = vix_raw[['Close']].reset_index().rename(columns={'Date': 'ds', 'Close': 'vix'})
+        
+        for temp in [sp500, vix]: temp['ds'] = pd.to_datetime(temp['ds']).dt.tz_localize(None)
+
+        final_df = pd.merge(df, sp500, on='ds', how='left')
+        final_df = pd.merge(final_df, vix, on='ds', how='left')
+        final_df['vol_ma'] = final_df['volume'].rolling(window=5).mean()
+        final_df = final_df.ffill().bfill().fillna(0)
+        final_df['unique_id'] = ticker
+        
+        return final_df[['unique_id', 'ds', 'y', 'volume', 'sp500', 'vix', 'vol_ma']]
     except Exception as e:
-        st.error(f"❌ Connection Error: {str(e)}")
-        st.stop()
+        st.error(f"Errore: {e}")
+        return None
 
-def prepare_dataset(data, window_size=60):
-    """
-    Calculates log-returns for stationarity and prepares sequences for LSTM training.
-    """
-    # Log-returns prevent the model from 'dropping' at all-time highs
-    log_returns = np.log(data / data.shift(1)).fillna(0)
-    
-    scaler = StandardScaler()
-    scaled_data = scaler.fit_transform(log_returns)
-    
-    X, y = [], []
-    # Create sliding window sequences
-    for i in range(window_size, len(scaled_data)):
-        X.append(scaled_data[i-window_size:i, 0])
-        y.append(scaled_data[i, 0])
-    
-    X = np.array(X).reshape(-1, window_size, 1)
-    y = np.array(y)
-    
-    return X, y, scaler, scaled_data
-
-def recursive_forecast(model, last_window, steps, scaler, raw_data):
-    """
-    Generates a future trajectory using recursive inference combined 
-    with historical drift and stochastic volatility.
-    """
-    # Calculate historical drift (mean) and volatility (std) from log-returns
-    log_returns = np.log(raw_data / raw_data.shift(1)).dropna()
-    avg_drift = log_returns.mean().values[0]
-    hist_vol = log_returns.std().values[0]
-    
-    current_batch = last_window.reshape(1, 60, 1)
-    log_preds = []
-    
-    for _ in range(steps):
-        # Neural network prediction (scaled log-return)
-        pred_scaled = model.predict(current_batch, verbose=0)[0]
-        
-        # Inject stochastic noise and drift for realistic price action
-        # This prevents the 'flat line' effect in long-term forecasts
-        noise = np.random.normal(avg_drift, hist_vol * 0.3)
-        pred_final = pred_scaled + (noise / scaler.scale_[0])
-        
-        log_preds.append(pred_final)
-        
-        # Update the sliding window with the new prediction
-        current_batch = np.append(current_batch[:, 1:, :], [[pred_final]], axis=1)
-    
-    # Inverse transform log-returns back to price space
-    unscaled_log_returns = scaler.inverse_transform(np.array(log_preds).reshape(-1, 1))
-    
-    # Cumulate returns and apply to the last known price
-    last_price = raw_data.values[-1][0]
-    price_forecast = []
-    accumulated_return = 0
-    
-    for r in unscaled_log_returns:
-        accumulated_return += r[0]
-        price_forecast.append(last_price * np.exp(accumulated_return))
-    
-    return np.array(price_forecast).reshape(-1, 1)
+def create_future_exog(df, horizon):
+    last_row = df.iloc[-1]
+    future_dates = pd.date_range(start=df['ds'].iloc[-1] + pd.Timedelta(days=1), periods=horizon, freq='B')
+    return pd.DataFrame({
+        'ds': future_dates,
+        'unique_id': df['unique_id'].iloc[0],
+        'sp500': last_row['sp500'], 'vix': last_row['vix'],
+        'volume': last_row['volume'], 'vol_ma': last_row['vol_ma']
+    })
