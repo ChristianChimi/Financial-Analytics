@@ -21,6 +21,14 @@ class RobustForecastModel:
         )
         self.nf = NeuralForecast(models=[self.model], freq='B')
 
+    def train_and_predict(self, df, _unused):
+        df_clean = df.copy().ffill().bfill().fillna(0)
+        self.nf.fit(df=df_clean)
+        correct_futr = self._prepare_and_clean_future(df_clean, df_clean)
+        
+        forecasts = self.nf.predict(futr_df=correct_futr)
+        return forecasts.reset_index()
+    
     def _prepare_and_clean_future(self, train_df, reference_df):
         futr_df = self.nf.make_future_dataframe(df=train_df)
         
@@ -35,16 +43,8 @@ class RobustForecastModel:
                 last_known = train_df[col].iloc[-1]
                 futr_df[col] = futr_df[col].fillna(last_known)
             futr_df[col] = futr_df[col].fillna(0)
-            
         return futr_df
 
-    def train_and_predict(self, df, _unused):
-        df_clean = df.copy().ffill().bfill().fillna(0)
-        self.nf.fit(df=df_clean)
-        correct_futr = self._prepare_and_clean_future(df_clean, df_clean)
-        
-        forecasts = self.nf.predict(futr_df=correct_futr)
-        return forecasts.reset_index()
 
     def run_backtest(self, df):
         df_clean = df.copy().ffill().bfill().fillna(0)
