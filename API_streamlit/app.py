@@ -50,7 +50,7 @@ if st.sidebar.button("Start analysis"):
                 st.plotly_chart(fig, use_container_width=True)
 
         with tab2:
-            with st.spinner("Eseguendo backtest..."):
+           with st.spinner("Running backtest..."):
                 try:
                     bt_forecast, real_data = engine.run_backtest(data)
                     col_bt = [c for c in bt_forecast.columns if '0.5' in c or 'NHITS' == c][0]
