@@ -28,9 +28,9 @@ if st.sidebar.button("Start analysis"):
         tab1, tab2 = st.tabs(["Future forecast", "Backtesting (Last 30days)"])
         
        with tab1:
-    with st.spinner("Generating prediction..."):
-        futr_df = create_future_exog(data, horizon)
-        forecast = engine.train_and_predict(data, futr_df)
+            with st.spinner("Generating prediction..."):
+               futr_df = create_future_exog(data, horizon)
+               forecast = engine.train_and_predict(data, futr_df)
         
         # Identifichiamo solo la colonna della previsione centrale (mediana)
         col_p50 = [c for c in forecast.columns if '0.5' in c or 'NHITS' == c or 'median' in c][0]
