@@ -22,7 +22,6 @@ class RobustForecastModel:
         self.nf = NeuralForecast(models=[self.model], freq='B')
 
     def _prepare_and_clean_future(self, train_df, reference_df):
-        """Genera futr_df e garantisce l'assenza totale di valori nulli"""
         futr_df = self.nf.make_future_dataframe(df=train_df)
         
         cols_to_merge = ['ds'] + [c for c in self.futr_exog if c in reference_df.columns]
