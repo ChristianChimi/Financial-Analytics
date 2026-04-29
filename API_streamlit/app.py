@@ -5,7 +5,7 @@ from model import RobustForecastModel
 
 st.set_page_config(page_title="AI Quant Pro", layout="wide")
 
-if st.sidebar.button("Reset Cache Sistema"):
+if st.sidebar.button("Reset system Cache "):
     st.cache_resource.clear()
     st.success("Cache cleaned!")
 
@@ -25,7 +25,7 @@ if st.sidebar.button("Start analysis"):
     if data is not None:
         engine = load_engine(horizon)
         
-        tab1, tab2 = st.tabs(["Future Futuro", "Backtesting (Last 30days)"])
+        tab1, tab2 = st.tabs(["Future forecast", "Backtesting (Last 30days)"])
         
         with tab1:
             with st.spinner("Generating prediction..."):
