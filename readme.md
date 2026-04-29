@@ -40,7 +40,7 @@ Real datasets from investing.com!
   - Emerging markets (EIMI) do not currently offer effective diversification as in the last years they’ve shown high correlation with developed markets, with lower returns and higher volatility.
 
 ## **Technologies Used**
- - **Python**, **Pandas**, **Numpy**, **PyTorch**, **Scikit-learn**
+ - **Python**, **Pandas**, **Numpy**, **PyTorch**, **Scikit-learn**, **NeuralForecaster**
 
 ## **Conclusions**
 This project analized interconnection between markets and confirmed correlations between them. Performed also Deeplearning models, with acceptable loss and validation, avoiding overfitting.
