@@ -12,7 +12,7 @@ if st.sidebar.button("Reset system Cache "):
 st.title(" AI Financial Terminal")
 
 ticker = st.sidebar.text_input("Ticker symbol", "NVDA").upper()
-period = st.sidebar.selectbox("Storico", ["2y", "3y", "5y"], index=1)
+period = st.sidebar.selectbox("Historical data range", ["2y", "3y", "5y"], index=1)
 horizon = st.sidebar.slider("Prediction Horizon (Days)", 7, 60, 30)
 
 @st.cache_resource
@@ -39,13 +39,13 @@ if st.sidebar.button("Start analysis"):
                 fig = go.Figure()
 
                 hist_plot = data.tail(504)
-                fig.add_trace(go.Scatter(x=hist_plot['ds'], y=hist_plot['y'], name="Storico", line=dict(color='#636efa')))
+                fig.add_trace(go.Scatter(x=hist_plot['ds'], y=hist_plot['y'], name="History", line=dict(color='#636efa')))
 
                 fig.add_trace(go.Scatter(x=forecast['ds'].tolist() + forecast['ds'].tolist()[::-1],
                                          y=forecast[col_p90].tolist() + forecast[col_p10].tolist()[::-1],
                                          fill='toself', fillcolor='rgba(0, 255, 255, 0.1)', line=dict(color='rgba(0,0,0,0)'), name="Range 80%"))
 
-                fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast[col_p50], name="Previsione", line=dict(color='cyan', width=3)))
+                fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast[col_p50], name="Prediction", line=dict(color='cyan', width=3)))
                 fig.update_layout(template="plotly_dark", height=600)
                 st.plotly_chart(fig, use_container_width=True)
 
@@ -56,7 +56,7 @@ if st.sidebar.button("Start analysis"):
                     col_bt = [c for c in bt_forecast.columns if '0.5' in c or 'NHITS' == c][0]
 
                     fig_bt = go.Figure()
-                    fig_bt.add_trace(go.Scatter(x=real_data['ds'], y=real_data['y'], name="Prezzo Reale", line=dict(color='white')))
+                    fig_bt.add_trace(go.Scatter(x=real_data['ds'], y=real_data['y'], name="Real price", line=dict(color='white')))
                     fig_bt.add_trace(go.Scatter(x=bt_forecast['ds'], y=bt_forecast[col_bt], name="AI Backtest", line=dict(color='orange', dash='dash')))
                     fig_bt.update_layout(template="plotly_dark", title="Comparation: reality vs prediction (Last month)")
                     st.plotly_chart(fig_bt, use_container_width=True)
