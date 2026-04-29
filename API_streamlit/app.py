@@ -27,27 +27,25 @@ if st.sidebar.button("Start analysis"):
         
         tab1, tab2 = st.tabs(["Future forecast", "Backtesting (Last 30days)"])
         
-        with tab1:
-            with st.spinner("Generating prediction..."):
-                futr_df = create_future_exog(data, horizon)
-                forecast = engine.train_and_predict(data, futr_df)
-                
-                col_p10 = [c for c in forecast.columns if '0.1' in c or 'lo' in c][0]
-                col_p50 = [c for c in forecast.columns if '0.5' in c or 'NHITS' == c or 'median' in c][0]
-                col_p90 = [c for c in forecast.columns if '0.9' in c or 'hi' in c][0]
+       with tab1:
+    with st.spinner("Generating prediction..."):
+        futr_df = create_future_exog(data, horizon)
+        forecast = engine.train_and_predict(data, futr_df)
+        
+        # Identifichiamo solo la colonna della previsione centrale (mediana)
+        col_p50 = [c for c in forecast.columns if '0.5' in c or 'NHITS' == c or 'median' in c][0]
 
-                fig = go.Figure()
+        fig = go.Figure()
 
-                hist_plot = data.tail(504)
-                fig.add_trace(go.Scatter(x=hist_plot['ds'], y=hist_plot['y'], name="History", line=dict(color='#636efa')))
+        # 1. Dati storici
+        hist_plot = data.tail(504)
+        fig.add_trace(go.Scatter(x=hist_plot['ds'], y=hist_plot['y'], name="History", line=dict(color='#636efa')))
 
-                fig.add_trace(go.Scatter(x=forecast['ds'].tolist() + forecast['ds'].tolist()[::-1],
-                                         y=forecast[col_p90].tolist() + forecast[col_p10].tolist()[::-1],
-                                         fill='toself', fillcolor='rgba(0, 255, 255, 0.1)', line=dict(color='rgba(0,0,0,0)'), name="Range 80%"))
-
-                fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast[col_p50], name="Prediction", line=dict(color='cyan', width=3)))
-                fig.update_layout(template="plotly_dark", height=600)
-                st.plotly_chart(fig, use_container_width=True)
+        # 2. Previsione puntuale (Abbiamo rimosso il blocco "Range 80%")
+        fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast[col_p50], name="Prediction", line=dict(color='cyan', width=3)))
+        
+        fig.update_layout(template="plotly_dark", height=600)
+        st.plotly_chart(fig, use_container_width=True)
 
         with tab2:
            with st.spinner("Running backtest..."):
