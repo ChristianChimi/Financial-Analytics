@@ -1,7 +1,6 @@
 # **Financial Analytics - Stock Market**
 ## **Overview**
-In this project I analyzed 10 years of historical data for the most famous financial indexes,including: NASDAQ-100, S&P500, iShares MSCI World, EIMI, Apple stock, and 5 years of VWCE data.
-The goal was to gain insights into stock market behavior and portfolio performance.
+An end-to-end data platform that orchestrates a robust ETL pipeline to ingest, clean, and consolidate heterogeneous financial time-series data. The system transforms raw multi-source datasets into high-integrity feature tables, feeding advanced PyTorch deep learning architectures (NHITS, LSTM, MLP) deployed as live, scalable web applications and APIs.
 
 ## **Data Pipeline & Preprocessing**
 - I engineered a robust, end-to-end ETL (Extract, Transform, Load) pipeline using Python and Pandas to ingest and condition multi-source financial time-series data:
