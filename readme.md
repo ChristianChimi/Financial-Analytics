@@ -1,4 +1,4 @@
-# **Financial Analytics - Stock Market**
+# **Financial Time Series Forecasting Architecture**
 ## **Overview**
 An end-to-end data platform that orchestrates a robust ETL pipeline to ingest, clean, and consolidate heterogeneous financial time-series data. The system transforms raw multi-source datasets into high-integrity feature tables, feeding advanced PyTorch deep learning architectures (NHITS, LSTM, MLP) deployed as live, scalable web applications and APIs.
 
